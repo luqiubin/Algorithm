@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Algorithm</string>
+    <string name="activity_main_edt_items_hint">请输入排序数据，以半角逗号隔开</string>
+</resources>
