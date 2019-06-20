@@ -1,10 +1,14 @@
 package net.lzzy.algorithm;
 
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import net.lzzy.algorithm.aigorlib.DirectSort;
 
 import java.util.Calendar;
 import java.util.Random;
@@ -34,12 +38,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 displayItems(edtItems);
                 break;
             case R.id.activity_main_btn_sort:
-//                directSort();
-                insertSort();
+                DirectSort<Integer> sort=new DirectSort<>(items);
+                sort.sortTime();
+                String result=sort.getResult();
+                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("排序成功");
+                builder.setMessage("对比次数:" + sort.getComparcCount() + "\n").show();
                 displayItems(tvResult);
                 break;
-            default:
-                break;
+                default:
+                    break;
+
         }
     }
 
@@ -67,15 +76,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     //todo：直接插入排序
     private void insertSort(){
         for (int i=1;i<items.length;i++){
-            if (items[i]<items[i-1]){
-                int temp=items[i];
-                int k=i-1;
-                for (int j=k;j>=0&& temp<items[j];j--){
-                    items[j+1]=items[j];
-                    k--;
-                }
-                items[k+1]=temp;
-            }
+        if (items[i]<items[i-1]){
+        int temp=items[i];
+        int k=i-1;
+        for (int j=k;j>=0&& temp<items[j];j--){
+        items[j+1]=items[j];
+        k--;
+        }
+        items[k+1]=temp;
+        }
         }
     }
 
@@ -107,3 +116,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 }
+
+
+
+//for (int i=1;i<items.length;i++){
+//        if (items[i]<items[i-1]){
+//        int temp=items[i];
+//        int k=i-1;
+//        for (int j=k;j>=0&& temp<items[j];j--){
+//        items[j+1]=items[j];
+//        k--;
+//        }
+//        items[k+1]=temp;
+//        }
+//        }
