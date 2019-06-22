@@ -5,17 +5,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AndroidException;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.lzzy.algorithm.aigorlib.BaseSearch;
 import net.lzzy.algorithm.aigorlib.BaseSort;
 import net.lzzy.algorithm.aigorlib.DirectSort;
+import net.lzzy.algorithm.aigorlib.LQB;
 import net.lzzy.algorithm.aigorlib.SortFactory;
 
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Random;
 
@@ -27,6 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Integer[] items;
     private EditText edtItems;
     private TextView tvResult;
+    Spinner spinner1;
+    LinearLayout container;
+    private Button btnSort;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +52,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner=findViewById(R.id.activity_main_btn_sp);
         spinner.setAdapter(adapter);
+
+        final ArrayAdapter<String>adapter1=new ArrayAdapter<>
+                (this,android.R.layout.simple_dropdown_item_1line,SortFactory.getSortName());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1=findViewById(R.id.activity_main_btn_sp1);
+        spinner1.setAdapter(adapter1);
+
 //    }
 //    private void initSpinner(){
 //        Spinner spinner=findViewById(R.id.activity_main_btn_sp);
 //        spinner.setAdapter(new ArrayAdapter<String>(this,
 //                android.R.layout.simple_spinner_dropdown_item, SortFactory.getSortName()));
 
+    }
+    private View.OnClickListener listener=new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            BaseSearch<Integer>search=
+                 LQB.getInstance(spinner.getSelectedItemPosition(),items);
+            if (search!=null){
+                int pos=search.search(v.getId());
+                tvResult.setText("该元素位于数组的第".concat((pos+1)+"位"));
+            }
+        }
+    };
+    private void resetSearch(){
+        container.removeAllViews();
+        generateItems();
+        btnSort.callOnClick();
+        for (Integer i:items){
+            Button btn=new Button(this);
+            btn.setText(String.format(i.toString(), Locale.CHINA));
+            btn.setId(i);
+            btn.setLayoutParams(new LinearLayout.LayoutParams(0,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,1));
+            btn.setOnClickListener(listener);
+            container.addView(btn);
+        }
     }
 
     @Override
@@ -65,18 +107,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tvResult.setText(result);
                 Toast.makeText(this, "总时长"+sort.getDuration(),
                         Toast.LENGTH_SHORT).show();
-//                DirectSort<Integer> sort=new DirectSort<>(items);
-//                sort.sortTime();
-//                String result=sort.getResult();
-//                AlertDialog.Builder builder=new AlertDialog.Builder(MainActivity.this);
-//                builder.setTitle("排序成功");
-//                builder.setMessage("对比次数:" + sort.getComparcCount() + "\n").show();
-//                displayItems(tvResult);
-                break;
-                default:
-                    break;
-
+            case R.id.bt1:
+                resetSearch();
         }
+        resetSearch();
     }
 
     private void displayItems(TextView tv) {
