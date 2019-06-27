@@ -21,10 +21,10 @@ public class BinarySearch <T extends Comparable<? super T>> extends BaseSearch<T
             if (comp==0){
                 setDuration(System.currentTimeMillis()-start);
                 return mid;
-            }else{
-                if (comp>0){
-                    left=mid-1;
-                }
+            }else if (comp>0){
+                    left=mid+1;
+                }else{
+                right=mid-1;
             }
             setDuration(System.currentTimeMillis()-start);
             return -1;
