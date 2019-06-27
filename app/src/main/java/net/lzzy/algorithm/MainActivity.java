@@ -122,52 +122,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tv.setText(display);
     }
 
-    private void directSort() {
-        //todo:直接选择排序的具体实现
-        for (int i=0;i<items.length-1;i++){
-            int minPos=i;
-            for (int j=i+1;j<items.length;j++){
-                if (items[minPos].compareTo(items[j])>0){
-                    minPos=j;
-                }
-            }
-            swap(minPos,i);
-        }
-    }
-    //todo：直接插入排序
-    private void insertSort(){
-        for (int i=1;i<items.length;i++){
-        if (items[i]<items[i-1]){
-        int temp=items[i];
-        int k=i-1;
-        for (int j=k;j>=0&& temp<items[j];j--){
-        items[j+1]=items[j];
-        k--;
-        }
-        items[k+1]=temp;
-        }
-        }
-    }
-
-    private void swap(int m,int n) {
-        int tmp=items[m];
-        items[m]=items[n];
-        items[n]=tmp;
-    }
-
-
-
-
-//        int temp;
-//        for (i=0;i<items.length-1;i++){
-//            for (j=0;j<items.length-1;j++){
-//                if (items[j]>items[j+1]){
-//                    temp=items[j];
-//                    items[j]=items[j+1];
-//                    items[j+1]=temp;
-//                }
-//            }
-//
 
     private void generateItems() {
         items = new Integer[10];
@@ -180,14 +134,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-//for (int i=1;i<items.length;i++){
-//        if (items[i]<items[i-1]){
-//        int temp=items[i];
-//        int k=i-1;
-//        for (int j=k;j>=0&& temp<items[j];j--){
-//        items[j+1]=items[j];
-//        k--;
-//        }
-//        items[k+1]=temp;
-//        }
-//        }

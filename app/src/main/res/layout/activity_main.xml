@@ -62,5 +62,10 @@
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:text="生成排序数"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="排序"
+            android:id="@+id/bt2"/>
     </LinearLayout>
 </LinearLayout>

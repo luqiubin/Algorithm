@@ -10,13 +10,15 @@ public abstract class  BaseSearch <T extends Comparable<? super T>> {
     long duration;
     int comparcCount;
     int swapCount;
+    public BaseSearch(){
+
+    }
 
 
     BaseSearch(T[] items) {
         this.items = items;
         comparcCount = 0;
         swapCount = 0;
-
     }
 
     boolean equal(T a, T b) {
